@@ -1,0 +1,64 @@
+{
+    "name": "Media Search bot",
+    "description": "When you going to post file on telegram channel this bot will save that in database, So you can easily search that in inline mode",
+    "keywords": [
+      "telegram",
+      "best",
+      "indian",
+      "pyrogram",
+      "media",
+      "search",
+      "channel",
+      "index",
+      "inline"
+    ],
+    "website": "https://github.com/Mahesh0253/Media-Search-bot",
+    "repository": "https://github.com/Mahesh0253/Media-Search-bot",
+    "env": {
+        "BOT_TOKEN": {
+            "description": "Your bot token.",
+            "value": ""
+        },
+        "API_ID": {
+            "description": "Get this value from https://my.telegram.org",
+            "value": ""
+        },
+        "API_HASH": {
+            "description": "Get this value from https://my.telegram.org",
+            "value": ""
+        },
+        "CHANNELS": {
+            "description": "Username or id of channel. Separate multiple channels by space.",
+            "value": ""
+        },
+        "ADMINS": {
+            "description": "Username or id of Admin. Separate multiple Admins by space.",
+            "value": ""
+        },
+        "DATABASE_URI": {
+            "description": "mongoDB URI. Get this value from https://www.mongodb.com. For more help watch this video - https://youtu.be/VQnmcBnguPY",
+            "value": ""
+        },
+        "DATABASE_NAME": {
+            "description": "Name of the database in mongoDB. For more help watch this video - https://youtu.be/VQnmcBnguPY",
+            "value": ""
+        },
+        "COLLECTION_NAME": {
+            "description": "Name of the collections. Defaults to Telegram_files. If you going to use same database, then use different collection name for each bot",
+            "value": "Telegram_files",
+            "required": false
+        }
+    },
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
