@@ -12,8 +12,8 @@ ADMINS = [int(admin) if re.search('^\d+$', admin) else admin for admin in enviro
 CHANNELS = [int(channel) if re.search('^-100\d+$', channel) else channel for channel in environ['CHANNELS'].split()]
 
 # MongoDB information
-DATABASE_URI = ['DATABASE_URI']
-DATABASE_NAME = ['DATABASE_NAME']
+DATABASE_URI = environ['DATABASE_URI']
+DATABASE_NAME = environ['DATABASE_NAME']
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Messages
