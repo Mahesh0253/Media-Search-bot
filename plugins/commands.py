@@ -52,7 +52,7 @@ async def log_file(bot, message):
         
         
 @Client.on_message(filters.command('delete') & filters.chat(ADMINS))
-async def total(bot, message):
+async def delete(bot, message):
     """Delete file from database"""
     
     reply = message.reply_to_message
