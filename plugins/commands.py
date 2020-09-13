@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import START_MSG, CHANNELS, ADMINS
-from utils import Media
+from info import START_MSG, CHANNELS, ADMINS, COLLECTION_NAME
+from utils import Media, db
 
 
 @Client.on_message(filters.command('start'))
@@ -49,3 +49,30 @@ async def log_file(bot, message):
         await message.reply_document('TelegramBot.log')
     except Exception as e:
         await message.reply(str(e))
+        
+        
+@Client.on_message(filters.command('delete') & filters.chat(ADMINS))
+async def total(bot, message):
+    """Delete file from database"""
+    
+    reply = message.reply_to_message
+    if reply and reply.media:
+        msg = await message.reply("Processing...⏳", quote=True)
+    else:
+        await message.reply('Reply to file with /delete which you want to delete', quote=True)
+        return
+    
+    for kind in ("document", "video", "audio"):
+        media = getattr(reply, kind, None)
+        if media is not None:
+            break
+    else:
+        await msg.edit('This is not supported file format')
+        return
+    
+    collection = db[COLLECTION_NAME] 
+    result = await collection.delete_one({'_id': media.file_id})
+    if result.deleted_count:
+        await msg.edit('File is successfully deleted from database')
+    else:
+        await msg.edit('File not found in database')

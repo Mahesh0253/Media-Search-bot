@@ -43,6 +43,7 @@ Check `sample_info.py` before editing `info.py` file
 ```
 channel - Get basic infomation about channels
 total - Show total of saved files
+delete - Delete file from database
 logger - Get log file
 ```
 ### Contributions
