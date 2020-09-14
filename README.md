@@ -9,7 +9,6 @@
 #### Easy Way
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-
 #### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
 
 #### Hard Way
@@ -29,8 +28,8 @@ Check `sample_info.py` before editing `info.py` file
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 * `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
-* `CHANNELS`: Username or id of channel or group. Separate multiple ids by space
-* `ADMINS`: Username or id of Admin. Separate multiple Admins by space
+* `CHANNELS`: Username or ID of channel or group. Separate multiple IDs by space
+* `ADMINS`: Username or ID of Admin. Separate multiple Admins by space
 * `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/dsuTn4qV2GA)
 * `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/dsuTn4qV2GA)
 
@@ -46,6 +45,11 @@ total - Show total of saved files
 delete - Delete file from database
 logger - Get log file
 ```
+
+### Tips
+* You can use `|` to separate query and file type while searching for specific type of file. For example: `Avengers | video`
+* If you don't want to create a channel or group, use your chat ID / username as the channel ID. When you send a file to a bot, it will be saved in the database.
+
 ### Contributions
 Contributions are welcome.
 

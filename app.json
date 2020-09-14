@@ -28,11 +28,11 @@
             "value": ""
         },
         "CHANNELS": {
-            "description": "Username or id of channel or group. Separate multiple ids by space.",
+            "description": "Username or ID of channel or group. Separate multiple IDs by space.",
             "value": ""
         },
         "ADMINS": {
-            "description": "Username or id of Admin. Separate multiple Admins by space.",
+            "description": "Username or ID of Admin. Separate multiple Admins by space.",
             "value": ""
         },
         "DATABASE_URI": {
