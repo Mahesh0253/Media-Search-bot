@@ -1,6 +1,6 @@
 {
     "name": "Media Search bot",
-    "description": "When you going to post file on telegram channel this bot will save that in database, So you can easily search that in inline mode",
+    "description": "When you going to send file on telegram channel/group this bot will save that in database, So you can search that easily in inline mode",
     "keywords": [
       "telegram",
       "best",
@@ -28,7 +28,7 @@
             "value": ""
         },
         "CHANNELS": {
-            "description": "Username or id of channel. Separate multiple channels by space.",
+            "description": "Username or id of channel or group. Separate multiple ids by space.",
             "value": ""
         },
         "ADMINS": {
@@ -36,11 +36,11 @@
             "value": ""
         },
         "DATABASE_URI": {
-            "description": "mongoDB URI. Get this value from https://www.mongodb.com. For more help watch this video - https://youtu.be/VQnmcBnguPY",
+            "description": "mongoDB URI. Get this value from https://www.mongodb.com. For more help watch this video - https://youtu.be/dsuTn4qV2GA",
             "value": ""
         },
         "DATABASE_NAME": {
-            "description": "Name of the database in mongoDB. For more help watch this video - https://youtu.be/VQnmcBnguPY",
+            "description": "Name of the database in mongoDB. For more help watch this video - https://youtu.be/dsuTn4qV2GA",
             "value": ""
         },
         "COLLECTION_NAME": {
