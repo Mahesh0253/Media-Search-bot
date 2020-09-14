@@ -1,7 +1,7 @@
 ## [Media Search bot](https://github.com/Mahesh0253/Media-Search-bot)
 
-* Index channel files for inline search.
-* When you going to post file on telegram channel this bot will save that in database, So you and your subscribers can easily search that in inline mode.
+* Index channel/group files for inline search.
+* When you going to post file on telegram channel/group this bot will save that in database, So you can search that easily in inline mode.
 * This bot supports document, video and audio file formats with caption.
 
 ### Installation
@@ -15,7 +15,7 @@
 python3 -m venv env
 . ./env/bin/activate
 pip install -r requirements.txt
-# <Create info.py with variables as given below>
+# <Edit info.py with variables as given below>
 python bot.py
 ```
 Check `sample_info.py` before editing `info.py` file
@@ -24,10 +24,9 @@ Check `sample_info.py` before editing `info.py` file
 
 ##### Required Variables
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
-
 * `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
-* `CHANNELS`: Username or id of channel. Separate multiple channels by space
+* `CHANNELS`: Username or id of channel or group. Separate multiple ids by space
 * `ADMINS`: Username or id of Admin. Separate multiple Admins by space
 * `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/VQnmcBnguPY)
 * `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/VQnmcBnguPY)
@@ -38,7 +37,7 @@ Check `sample_info.py` before editing `info.py` file
 * `CACHE_TIME`: The maximum amount of time in seconds that the result of the inline query may be cached on the server
 
 ### How to use?
-* First add this bot in channel as a Admin
+* First add this bot in channel/group as a Admin
 * Then whenever you post file, bot will save that in database, So you can easily search whenever you want.
 
 ### Admin commands
