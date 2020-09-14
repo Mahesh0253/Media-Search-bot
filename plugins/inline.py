@@ -62,7 +62,7 @@ def get_reply_markup(username):
         InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
         InlineKeyboardButton(
             text='Share bot',
-            url='tg://msg?text='+ quote(SHARE_BUTTON_TEXT.format(username=username))),
+            url='t.me/share/url?url='+ quote(SHARE_BUTTON_TEXT.format(username=username))),
     ]]
     return InlineKeyboardMarkup(buttons)
 
