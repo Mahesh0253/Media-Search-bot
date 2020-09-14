@@ -51,7 +51,7 @@ async def save_file(media):
         logger.info(media.file_name + " is saved in database")
 
 
-async def get_search_results(query, max_results=10, offset=0):
+async def get_search_results(query, file_type=None, max_results=10, offset=0):
     """For given query return (results, next_offset)"""
 
     raw_pattern = query.lower().strip().replace(' ', '.?')
@@ -59,17 +59,20 @@ async def get_search_results(query, max_results=10, offset=0):
         raw_pattern = '.'
 
     try:
-        regex = re.compile(raw_pattern, re.IGNORECASE)
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except:
         return []
 
     filter = {'file_name': regex}
+    if file_type:
+        filter['file_type'] = file_type
+
     total_results = await Media.count_documents(filter)
     next_offset = offset + max_results
 
     if next_offset > total_results:
         next_offset = ''
-    
+
     results = await Media.find(filter).sort(
         '$natural', -1).skip(offset).limit(max_results).to_list(length=max_results)
     return results, next_offset

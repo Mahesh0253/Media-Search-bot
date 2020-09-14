@@ -10,10 +10,18 @@ async def answer(bot, query):
     """Show search results for given inline query"""
 
     results = []
-    string = query.query
+    if '|' in query.query:
+        string, file_type = query.query.split('|', maxsplit=1)
+        string = string.strip()
+        file_type = file_type.strip().lower()
+    else:
+        string = query.query.strip()
+        file_type = None
+    
     offset = int(query.offset or 0)
     reply_markup = get_reply_markup(bot.username)
     files, next_offset = await get_search_results(string,
+                                                  file_type=file_type,
                                                   max_results=MAX_RESULTS,
                                                   offset=offset)
 
