@@ -15,10 +15,10 @@ async def start(bot, message):
     await message.reply(START_MSG, reply_markup=reply_markup)
 
 
-@Client.on_message(filters.command('channel') & filters.chat(ADMINS))
+@Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
     """Send basic information of channel"""
-
+    
     if isinstance(CHANNELS, (int, str)):
         channels = [CHANNELS]
     elif isinstance(CHANNELS, list):
@@ -34,7 +34,7 @@ async def channel_info(bot, message):
             await message.reply(f'Error: {e}')
 
 
-@Client.on_message(filters.command('total') & filters.chat(ADMINS))
+@Client.on_message(filters.command('total') & filters.user(ADMINS))
 async def total(bot, message):
     """Show total files in database"""
     msg = await message.reply("Processing...⏳", quote=True)
@@ -42,7 +42,7 @@ async def total(bot, message):
     await msg.edit(f'📁 Saved files: {total}')
 
 
-@Client.on_message(filters.command('logger') & filters.chat(ADMINS))
+@Client.on_message(filters.command('logger') & filters.user(ADMINS))
 async def log_file(bot, message):
     """Send log file"""
     try:
@@ -51,7 +51,7 @@ async def log_file(bot, message):
         await message.reply(str(e))
 
 
-@Client.on_message(filters.command('delete') & filters.chat(ADMINS))
+@Client.on_message(filters.command('delete') & filters.user(ADMINS))
 async def delete(bot, message):
     """Delete file from database"""
 
