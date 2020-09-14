@@ -13,7 +13,7 @@ async def start(bot, message):
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply(
-        text=START_MSG.format(username=bot.username), 
+        text=START_MSG.format(username=bot.username),
         reply_markup=reply_markup)
 
 
@@ -51,19 +51,19 @@ async def log_file(bot, message):
         await message.reply_document('TelegramBot.log')
     except Exception as e:
         await message.reply(str(e))
-        
-        
+
+
 @Client.on_message(filters.command('delete') & filters.chat(ADMINS))
 async def delete(bot, message):
     """Delete file from database"""
-    
+
     reply = message.reply_to_message
     if reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
     else:
         await message.reply('Reply to file with /delete which you want to delete', quote=True)
         return
-    
+
     for kind in ("document", "video", "audio"):
         media = getattr(reply, kind, None)
         if media is not None:
@@ -71,9 +71,14 @@ async def delete(bot, message):
     else:
         await msg.edit('This is not supported file format')
         return
-    
-    collection = db[COLLECTION_NAME] 
-    result = await collection.delete_one({'_id': media.file_id})
+
+    collection = db[COLLECTION_NAME]
+    result = await collection.delete_one({
+        'file_name': media.file_name,
+        'file_size': media.file_size,
+        'mime_type': media.mime_type,
+        'caption': reply.caption
+    })
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
     else:
