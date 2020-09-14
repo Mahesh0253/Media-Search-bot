@@ -15,7 +15,7 @@
 python3 -m venv env
 . ./env/bin/activate
 pip install -r requirements.txt
-# <Create config.py with variables as given below>
+# <Create info.py with variables as given below>
 python bot.py
 ```
 Check `sample_info.py` before editing `info.py` file
