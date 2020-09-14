@@ -11,7 +11,7 @@ async def answer(bot, query):
 
     results = []
     string = query.query
-    offset = int(query.offset) if query.offset else 0
+    offset = int(query.offset or 0)
     reply_markup = get_reply_markup(bot.username)
     files, next_offset = await get_search_results(string,
                                                   max_results=MAX_RESULTS,
