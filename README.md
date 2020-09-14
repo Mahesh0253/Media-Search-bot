@@ -2,7 +2,7 @@
 
 * Index channel/group files for inline search.
 * When you going to post file on telegram channel/group this bot will save that in database, So you can search that easily in inline mode.
-* This bot supports document, video and audio file formats with caption.
+* Supports document, video and audio file formats with caption.
 
 ### Installation
 
@@ -28,17 +28,16 @@ Check `sample_info.py` before editing `info.py` file
 * `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `CHANNELS`: Username or id of channel or group. Separate multiple ids by space
 * `ADMINS`: Username or id of Admin. Separate multiple Admins by space
-* `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/VQnmcBnguPY)
-* `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/VQnmcBnguPY)
+* `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/dsuTn4qV2GA)
+* `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/dsuTn4qV2GA)
 
 ##### Optional Variables
 * `COLLECTION_NAME`: Name of the collections. Defaults to Telegram_files. If you going to use same database, then use different collection name for each bot
 * `MAX_RESULTS`: Maximum limit for inline search results
 * `CACHE_TIME`: The maximum amount of time in seconds that the result of the inline query may be cached on the server
 
-### How to use?
-* First add this bot in channel/group as a Admin
-* Then whenever you post file, bot will save that in database, So you can easily search whenever you want.
+### How to use? 
+* [Watch this video](https://youtu.be/dsuTn4qV2GA)
 
 ### Admin commands
 ```
