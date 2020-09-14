@@ -9,6 +9,9 @@
 #### Easy Way
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+
+#### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
+
 #### Hard Way
 
 ```sh
@@ -35,9 +38,6 @@ Check `sample_info.py` before editing `info.py` file
 * `COLLECTION_NAME`: Name of the collections. Defaults to Telegram_files. If you going to use same database, then use different collection name for each bot
 * `MAX_RESULTS`: Maximum limit for inline search results
 * `CACHE_TIME`: The maximum amount of time in seconds that the result of the inline query may be cached on the server
-
-### How to use? 
-* [Watch this video](https://youtu.be/dsuTn4qV2GA)
 
 ### Admin commands
 ```
