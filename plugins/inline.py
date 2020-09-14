@@ -11,8 +11,11 @@ async def answer(bot, query):
 
     results = []
     string = query.query
+    offset = int(query.offset) if query.offset else 0
     reply_markup = get_reply_markup(bot.username)
-    files = await get_search_results(string, max_results=MAX_RESULTS)
+    files, next_offset = await get_search_results(string,
+                                                  max_results=MAX_RESULTS,
+                                                  offset=offset)
 
     for file in files:
         results.append(
@@ -21,9 +24,7 @@ async def answer(bot, query):
                 file_id=file.file_id,
                 caption=file.caption,
                 description=f'Size: {get_size(file.file_size)}\nType: {file.file_type}',
-                reply_markup=reply_markup,
-            )
-        )
+                reply_markup=reply_markup))
 
     if results:
         count = len(results)
@@ -34,18 +35,18 @@ async def answer(bot, query):
         await query.answer(results=results,
                            cache_time=CACHE_TIME,
                            switch_pm_text=switch_pm_text,
-                           switch_pm_parameter="start")
+                           switch_pm_parameter="start",
+                           next_offset=str(next_offset))
     else:
 
         switch_pm_text = f'{emoji.CROSS_MARK} No results'
         if string:
             switch_pm_text += f' for "{string}"'
 
-        await query.answer(
-            results=[],
-            cache_time=CACHE_TIME,
-            switch_pm_text=switch_pm_text,
-            switch_pm_parameter="okay")
+        await query.answer(results=[],
+                           cache_time=CACHE_TIME,
+                           switch_pm_text=switch_pm_text,
+                           switch_pm_parameter="okay")
 
 
 def get_reply_markup(username):
