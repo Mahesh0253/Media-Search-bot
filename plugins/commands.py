@@ -1,7 +1,11 @@
+import os
+import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, COLLECTION_NAME
 from utils import Media, db
+
+logger = logging.getLogger(__name__)
 
 
 @Client.on_message(filters.command('start'))
@@ -28,18 +32,27 @@ async def channel_info(bot, message):
 
     for channel in channels:
         channel_info = await bot.get_chat(channel)
-        try:
+        string = str(channel_info)
+        if len(string) > 4096:
+            filename = (channel_info.title or channel_info.first_name) + ".txt"
+            with open(filename, 'w') as f:
+                f.write(string)
+            await message.reply_document(filename)
+            os.remove(filename)
+        else:
             await message.reply(str(channel_info))
-        except Exception as e:
-            await message.reply(f'Error: {e}')
-
+            
 
 @Client.on_message(filters.command('total') & filters.user(ADMINS))
 async def total(bot, message):
     """Show total files in database"""
     msg = await message.reply("Processing...⏳", quote=True)
-    total = await Media.count_documents()
-    await msg.edit(f'📁 Saved files: {total}')
+    try:
+        total = await Media.count_documents()
+        await msg.edit(f'📁 Saved files: {total}')
+    except Exception as e:
+        logger.exception('Failed to check total files')
+        await msg.edit(f'Error: {e}')
 
 
 @Client.on_message(filters.command('logger') & filters.user(ADMINS))
@@ -62,8 +75,8 @@ async def delete(bot, message):
         await message.reply('Reply to file with /delete which you want to delete', quote=True)
         return
 
-    for kind in ("document", "video", "audio"):
-        media = getattr(reply, kind, None)
+    for file_type in ("document", "video", "audio"):
+        media = getattr(reply, file_type, None)
         if media is not None:
             break
     else:
