@@ -47,6 +47,7 @@ logger - Get log file
 ```
 
 ### Tips
+* Run [one_time_indexer.py](one_time_indexer.py) file to save old files in the database that are not indexed yet.
 * You can use `|` to separate query and file type while searching for specific type of file. For example: `Avengers | video`
 * If you don't want to create a channel or group, use your chat ID / username as the channel ID. When you send a file to a bot, it will be saved in the database.
 
