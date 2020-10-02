@@ -28,3 +28,7 @@ Here you can search files in inline mode. Just press following buttons and start
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
+
+
+USER_SESSION = environ.get('USER_SESSION', 'User_Bot')
+USER_CHANNELS = [int(channel) if re.search('^-100\d+$', channel) else channel for channel in environ['CHANNELS'].split()]

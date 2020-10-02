@@ -25,3 +25,6 @@ Here you can search files in inline mode. Just press follwing buttons and start 
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
+
+USER_SESSION = 'User_Bot'
+USER_CHANNELS = [-10012345678, -100987654321, 'channelusername']
