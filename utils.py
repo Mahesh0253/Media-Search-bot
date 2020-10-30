@@ -3,6 +3,7 @@ import logging
 from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
+from marshmallow.exceptions import ValidationError
 from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME
 
 logger = logging.getLogger(__name__)
@@ -47,6 +48,8 @@ async def save_file(media):
         await file.commit()
     except DuplicateKeyError:
         logger.warning(media.file_name + " is already saved in database")
+    except ValidationError:
+        logger.exception('Error occurred while saving file in database')
     else:
         logger.info(media.file_name + " is saved in database")
 
