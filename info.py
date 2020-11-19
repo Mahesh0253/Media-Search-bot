@@ -14,7 +14,7 @@ CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 
 # Admins & Channels
 ADMINS = [int(admin) if re.search('^\d+$', admin) else admin for admin in environ['ADMINS'].split()]
-CHANNELS = [int(channel) if re.search('^-100\d+$', channel) else channel for channel in environ['CHANNELS'].split()]
+CHANNELS = [int(channel) if re.search('^.\d+$', channel) else channel for channel in environ['CHANNELS'].split()]
 
 # MongoDB information
 DATABASE_URI = environ['DATABASE_URI']
