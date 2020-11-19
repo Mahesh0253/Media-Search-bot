@@ -3,7 +3,7 @@ import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, COLLECTION_NAME
-from utils import Media, db
+from utils import Media
 
 logger = logging.getLogger(__name__)
 
@@ -83,8 +83,7 @@ async def delete(bot, message):
         await msg.edit('This is not supported file format')
         return
 
-    collection = db[COLLECTION_NAME]
-    result = await collection.delete_one({
+    result = await Media.collection.delete_one({
         'file_name': media.file_name,
         'file_size': media.file_size,
         'mime_type': media.mime_type,
