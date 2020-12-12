@@ -30,7 +30,7 @@ class Media(Document):
 
 async def save_file(media):
     """Save file in database"""
-    
+
     try:
         file = Media(
             file_id=media.file_id,
@@ -58,7 +58,7 @@ async def save_file(media):
 async def get_search_results(query, file_type=None, max_results=10, offset=0):
     """For given query return (results, next_offset)"""
 
-    raw_pattern = query.lower().strip().replace(' ', '.?')
+    raw_pattern = query.lower().strip().replace(' ', '.*')
     if not raw_pattern:
         raw_pattern = '.'
 
