@@ -22,7 +22,6 @@ async def start(bot, message):
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
     """Send basic information of channel"""
-    
     if isinstance(CHANNELS, (int, str)):
         channels = [CHANNELS]
     elif isinstance(CHANNELS, list):
@@ -41,7 +40,7 @@ async def channel_info(bot, message):
             os.remove(filename)
         else:
             await message.reply(str(channel_info))
-            
+
 
 @Client.on_message(filters.command('total') & filters.user(ADMINS))
 async def total(bot, message):
@@ -67,7 +66,6 @@ async def log_file(bot, message):
 @Client.on_message(filters.command('delete') & filters.user(ADMINS))
 async def delete(bot, message):
     """Delete file from database"""
-
     reply = message.reply_to_message
     if reply and reply.media:
         msg = await message.reply("Processing...⏳", quote=True)
