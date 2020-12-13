@@ -13,7 +13,7 @@ from utils import save_file
 
 async def main():
     """Save old files in database with the help of user bot"""
-    
+
     user_bot = Client(USER_SESSION, API_ID, API_HASH)
     bot = Client(SESSION, API_ID, API_HASH, bot_token=BOT_TOKEN)
 
@@ -26,7 +26,7 @@ async def main():
                 message = await bot.get_messages(
                     channel,
                     user_message.message_id,
-                    replies=0
+                    replies=0,
                 )
                 for file_type in ("document", "video", "audio"):
                     media = getattr(message, file_type, None)

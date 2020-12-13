@@ -4,7 +4,7 @@ from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -67,7 +67,11 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
     except:
         return []
 
-    filter = {'file_name': regex}
+    if USE_CAPTION_FILTER:
+        filter = {'$or': [{'file_name': regex}, {'caption': regex}]}
+    else:
+        filter = {'file_name': regex}
+
     if file_type:
         filter['file_type'] = file_type
 
@@ -77,6 +81,12 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
     if next_offset > total_results:
         next_offset = ''
 
-    results = await Media.find(filter).sort(
-        '$natural', -1).skip(offset).limit(max_results).to_list(length=max_results)
-    return results, next_offset
+    cursor = Media.find(filter)
+    # Sort by recent
+    cursor.sort('$natural', -1)
+    # Slice files according to offset and max results
+    cursor.skip(offset).limit(max_results)
+    # Get list of files
+    files = await cursor.to_list(length=max_results)
+
+    return files, next_offset

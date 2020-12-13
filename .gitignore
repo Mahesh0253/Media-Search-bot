@@ -3,6 +3,7 @@
 *.session-journal
 .vscode
 *test.py
+setup.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

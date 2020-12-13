@@ -11,10 +11,12 @@ BOT_TOKEN = environ['BOT_TOKEN']
 # Bot settings
 MAX_RESULTS = int(environ.get('MAX_RESULTS', 10))
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
+USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
 
-# Admins & Channels
+# Admins, Channels & Users
 ADMINS = [int(admin) if re.search('^\d+$', admin) else admin for admin in environ['ADMINS'].split()]
-CHANNELS = [int(channel) if re.search('^.\d+$', channel) else channel for channel in environ['CHANNELS'].split()]
+CHANNELS = [int(ch) if re.search('^.\d+$', ch) else ch for ch in environ['CHANNELS'].split()]
+AUTH_USERS = [int(user) if re.search('^\d+$', user) else user for user in environ['AUTH_USERS'].split()]
 
 # MongoDB information
 DATABASE_URI = environ['DATABASE_URI']
