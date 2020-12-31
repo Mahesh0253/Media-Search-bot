@@ -22,7 +22,7 @@ COLLECTION_NAME = 'channel_files'  # If you are using the same database, then us
 
 # Messages
 START_MSG = """
-**Hi, I'm Media Search bot**
+**Hi, I'm SerialCoIn Backup bot 2021🤗🤗**
 
 Here you can search files in inline mode. Just press follwing buttons and start searching.
 """
