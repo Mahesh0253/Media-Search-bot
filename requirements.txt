@@ -1,4 +1,4 @@
-https://github.com/Mahesh0253/pyrogram/archive/beta.zip
+https://github.com/Mahesh0253/pyrogram/archive/inline.zip
 tgcrypto
 umongo
 motor
