@@ -40,6 +40,11 @@
             "value": "",
             "required": false
         },
+        "UPDATE_CHANNEL": {
+            "description": "Username or ID of users to give access of inline search. Separate multiple users by space.\nLeave it empty if you don't want to restrict bot usage.",
+            "value": "",
+            "required": false
+        },
         "USE_CAPTION_FILTER": {
             "description": "Whether bot should use captions to improve search results. (True False)",
             "value": "False",
