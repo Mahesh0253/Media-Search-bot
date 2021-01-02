@@ -14,7 +14,7 @@ from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
-  update_channel = Config.UPDATE_CHANNEL
+    update_channel = Config.UPDATE_CHANNEL
     if update_channel:
         try:
             user = await bot.get_chat_member(update_channel, update.chat.id)
