@@ -6,7 +6,7 @@ from info import START_MSG, CHANNELS, ADMINS
 from utils import Media
 
 logger = logging.getLogger(__name__)
-from pyrogram import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import ReplyKeyboardMarkup
 from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 
 
