@@ -1,5 +1,5 @@
 https://github.com/Mahesh0253/pyrogram/archive/beta.zip
 tgcrypto
-umongo
-motor
+umongo==2.3.0
+motor==2.3.0
 dnspython
