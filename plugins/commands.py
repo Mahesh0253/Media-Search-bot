@@ -32,17 +32,22 @@ async def channel_info(bot, message):
     else:
         raise ValueError("Unexpected type of CHANNELS")
 
+    text = '📑 **Indexed channels/groups**\n'
     for channel in channels:
-        channel_info = await bot.get_chat(channel)
-        string = str(channel_info)
-        if len(string) > 4096:
-            filename = (channel_info.title or channel_info.first_name) + ".txt"
-            with open(filename, 'w') as f:
-                f.write(string)
-            await message.reply_document(filename)
-            os.remove(filename)
+        chat = await bot.get_chat(channel)
+        if chat.username:
+            text += '\n@' + chat.username
         else:
-            await message.reply(str(channel_info))
+            text += '\n' + chat.title or chat.first_name
+
+    if len(text) < 4096:
+        await message.reply(text)
+    else:
+        file = 'Indexed channels.txt'
+        with open(file, 'w') as f:
+            f.write(text)
+        await message.reply_document(file)
+        os.remove(file)
 
 
 @Client.on_message(filters.command('total') & filters.user(ADMINS))
