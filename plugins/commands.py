@@ -2,7 +2,7 @@ import os
 import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import START_MSG, CHANNELS, ADMINS
+from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG
 from utils import Media
 
 logger = logging.getLogger(__name__)
@@ -11,12 +11,15 @@ logger = logging.getLogger(__name__)
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
     """Start command handler"""
-    buttons = [[
-        InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
-        InlineKeyboardButton('Go Inline', switch_inline_query=''),
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await message.reply(START_MSG, reply_markup=reply_markup)
+    if len(message.command) > 1 and message.command[1] == 'subscribe':
+        await message.reply(INVITE_MSG)
+    else:
+        buttons = [[
+            InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('Go Inline', switch_inline_query=''),
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply(START_MSG, reply_markup=reply_markup)
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))

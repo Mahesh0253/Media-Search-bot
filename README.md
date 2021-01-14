@@ -39,6 +39,8 @@ Check `sample_info.py` before editing `info.py` file
 * `CACHE_TIME`: The maximum amount of time in seconds that the result of the inline query may be cached on the server
 * `USE_CAPTION_FILTER`: Whether bot should use captions to improve search results. (True/False)
 * `AUTH_USERS`: Username or ID of users to give access of inline search. Separate multiple users by space. Leave it empty if you don't want to restrict bot usage.
+* `AUTH_CHANNEL`: Username or ID of channel. Without subscribing this channel users cannot use bot.
+* `INVITE_MSG`: Auth channel invitation message.
 
 ### Admin commands
 ```
