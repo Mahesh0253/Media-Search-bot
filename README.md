@@ -6,14 +6,15 @@
 
 ## Installation
 
+### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
 ### Easy Way
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
 
 ### Hard Way
 
 ```sh
+# Create virtual environment
 python3 -m venv env
 
 # Activate virtual environment
@@ -26,7 +27,7 @@ pip3 install -r requirements.txt
 # Edit info.py with variables as given below
 python3 bot.py
 ```
-Check `sample_info.py` before editing `info.py` file
+Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) file
 
 ## Variables
 
@@ -62,12 +63,12 @@ logger - Get log file
 * If you don't want to create a channel or group, use your chat ID / username as the channel ID. When you send a file to a bot, it will be saved in the database.
 
 ## Contributions
-> Contributions are welcome.
+Contributions are welcome.
 
 ## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 ## Support
-> [Update Channel](https://t.me/botxupdates) and [Support Group](https://t.me/botxsupport)
+[Update Channel](https://t.me/botxupdates) and [Support Group](https://t.me/botxsupport)
 
 ## License
 Code released under [The GNU General Public License](LICENSE).
