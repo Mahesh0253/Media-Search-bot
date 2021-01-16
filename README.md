@@ -24,7 +24,7 @@ source env/bin/activate # For Linux or MacOS
 # Install Packages
 pip3 install -r requirements.txt
 
-# Edit info.py with variables as given below
+# Edit info.py with variables as given below then run bot
 python3 bot.py
 ```
 Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) file
