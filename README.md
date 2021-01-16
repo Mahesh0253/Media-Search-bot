@@ -18,7 +18,7 @@
 python3 -m venv env
 
 # Activate virtual environment
-tutorial-env\Scripts\activate.bat # For Windows
+env\Scripts\activate.bat # For Windows
 source env/bin/activate # For Linux or MacOS
 
 # Install Packages
