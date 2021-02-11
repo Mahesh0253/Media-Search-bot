@@ -56,15 +56,6 @@ async def answer(bot, query):
                            switch_pm_parameter="okay")
 
 
-def get_reply_markup(username):
-    url = 't.me/share/url?url=' + quote(SHARE_BUTTON_TEXT.format(username=username))
-    buttons = [[
-        InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
-        InlineKeyboardButton('Share bot', url=url),
-    ]]
-    return InlineKeyboardMarkup(buttons)
-
-
 def get_size(size):
     """Get size in readable format"""
 
