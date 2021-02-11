@@ -12,11 +12,13 @@ logger = logging.getLogger(__name__)
 async def start(bot, message):
     """Start command handler"""
     buttons = [[
-        InlineKeyboardButton('جستجو', switch_inline_query_current_chat=''),
-    ]]
+        InlineKeyboardButton(
+            text='درباره ما',
+            url='telegram.me/rapdrugg'),
+        InlineKeyboardButton('جستجو آهنگ', switch_inline_query_current_chat=''),
+    ]]    
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.reply(START_MSG, reply_markup=reply_markup)
-
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
