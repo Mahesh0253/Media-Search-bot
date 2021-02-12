@@ -26,9 +26,13 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Messages
 START_MSG = """
-**سلام**
+،سلام
+،به فول رپ
+کامل ترین و به روزترین ربات
+.آرشیو رپ فارسی خوش آمدید
 
-Here you can search files in inline mode. Just press following buttons and start searching.
+
+،در صورت قطع موقتی ربات
+:از ربات دوم استفاده کنید
+@fullRap_bot
 """
-
-SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
