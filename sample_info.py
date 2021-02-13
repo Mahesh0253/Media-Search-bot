@@ -22,9 +22,9 @@ COLLECTION_NAME = 'channel_files'  # If you are using the same database, then us
 
 # Messages
 START_MSG = """
-**Hi, I'm Media Search bot**
+**এখানে আপনি পিডিএফ খুঁজতে পারবেন খুব সহজেই**
 
-Here you can search files in inline mode. Just press follwing buttons and start searching.
+নিচের Search Here লেখাতে ক্লিক করে পিডিএফের নাম লিখুন, যদি থাকে পেয়ে যাবেন ইনশাআল্লাহ। কোনো প্রয়োজনে অথবা কিভাবে সার্চ করবেন দেখতে এই লিংকে ক্লিক করুন @pdfsearchhelpbot .
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
