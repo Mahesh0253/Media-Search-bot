@@ -22,9 +22,8 @@ COLLECTION_NAME = 'channel_files'  # If you are using the same database, then us
 
 # Messages
 START_MSG = """
-**Hi, I'm Media Search bot**
+**Click Search Here, Then put your pdf name**
 
-Here you can search files in inline mode. Just press follwing buttons and start searching.
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
