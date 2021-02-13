@@ -24,7 +24,7 @@ COLLECTION_NAME = 'channel_files'  # If you are using the same database, then us
 START_MSG = """
 **এখানে আপনি পিডিএফ খুঁজতে পারবেন খুব সহজেই**
 
-নিচের Search Here লেখাতে ক্লিক করে পিডিএফের নাম লিখুন, যদি থাকে পেয়ে যাবেন ইনশাআল্লাহ। কোনো প্রয়োজনে অথবা কিভাবে সার্চ করবেন দেখতে এই লিংকে ক্লিক করুন @pdfsearchhelpbot .
+নিচের Search Here লেখাতে ক্লিক করে পিডিএফের নাম লিখুন, যদি থাকে পেয়ে যাবেন ইনশাআল্লাহ। কোনো প্রয়োজনে অথবা কিভাবে সার্চ করবেন দেখতে এই লিংকে ক্লিক করুন @pdfsearchhelpbot.
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
