@@ -13,7 +13,7 @@
 
 ### Hard Way
 
-```sh
+```bash
 # Create virtual environment
 python3 -m venv env
 
@@ -48,6 +48,7 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 * `AUTH_USERS`: Username or ID of users to give access of inline search. Separate multiple users by space. Leave it empty if you don't want to restrict bot usage.
 * `AUTH_CHANNEL`: Username or ID of channel. Without subscribing this channel users cannot use bot.
 * `INVITE_MSG`: Auth channel invitation message.
+* `USERBOT_STRING_SESSION`: User bot string session.
 
 ## Admin commands
 ```

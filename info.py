@@ -9,6 +9,7 @@ USER_SESSION = environ.get('USER_SESSION', 'User_Bot')
 API_ID = int(environ['API_ID'])
 API_HASH = environ['API_HASH']
 BOT_TOKEN = environ['BOT_TOKEN']
+USERBOT_STRING_SESSION = environ.get('USERBOT_STRING_SESSION')
 
 # Bot settings
 MAX_RESULTS = int(environ.get('MAX_RESULTS', 10))
