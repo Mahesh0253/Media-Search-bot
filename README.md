@@ -55,6 +55,7 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 channel - Get basic infomation about channels
 total - Show total of saved files
 delete - Delete file from database
+index - Index all files from channel or group
 logger - Get log file
 ```
 
