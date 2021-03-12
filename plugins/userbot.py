@@ -1,6 +1,7 @@
 import logging
 import asyncio
 from pyrogram import Client, filters
+from pyrogram.errors import FloodWait
 from info import USERBOT_STRING_SESSION, API_ID, API_HASH, ADMINS, id_pattern
 from utils import save_file
 
@@ -30,12 +31,22 @@ async def index_files(bot, message):
             try:
                 async with user_bot:
                     for chat in chats:
+                        
                         async for user_message in user_bot.iter_history(chat):
-                            message = await bot.get_messages(
-                                chat,
-                                user_message.message_id,
-                                replies=0,
-                            )
+                            try:
+                                message = await bot.get_messages(
+                                    chat,
+                                    user_message.message_id,
+                                    replies=0,
+                                )
+                            except FloodWait as e:
+                                await asyncio.sleep(e.x)
+                                message = await bot.get_messages(
+                                    chat,
+                                    user_message.message_id,
+                                    replies=0,
+                                )
+                            
                             for file_type in ("document", "video", "audio"):
                                 media = getattr(message, file_type, None)
                                 if media is not None:
