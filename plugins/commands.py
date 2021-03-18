@@ -8,7 +8,7 @@ from utils import Media
 logger = logging.getLogger(__name__)
 
 
-@Client.on_message(filters.command('start'))
+@Client.on_message(filters.command('search'))
 async def start(bot, message):
     """Start command handler"""
     buttons = [[
