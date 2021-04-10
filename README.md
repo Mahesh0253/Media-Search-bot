@@ -11,7 +11,8 @@
 
 #### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
 
-#### Hard Way
+#### Hard Wam
+
 
 ```sh
 python3 -m venv env
