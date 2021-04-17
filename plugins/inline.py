@@ -9,6 +9,7 @@ from utils import get_search_results
 from info import MAX_RESULTS, CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
+cache_time = 0 if AUTH_USERS or AUTH_CHANNEL else CACHE_TIME
 
 
 @Client.on_inline_query(filters.user(AUTH_USERS) if AUTH_USERS else None)
@@ -53,7 +54,7 @@ async def answer(bot, query):
             switch_pm_text += f" for {string}"
 
         await query.answer(results=results,
-                           cache_time=CACHE_TIME,
+                           cache_time=cache_time,
                            switch_pm_text=switch_pm_text,
                            switch_pm_parameter="start",
                            next_offset=str(next_offset))
@@ -64,7 +65,7 @@ async def answer(bot, query):
             switch_pm_text += f' for "{string}"'
 
         await query.answer(results=[],
-                           cache_time=CACHE_TIME,
+                           cache_time=cache_time,
                            switch_pm_text=switch_pm_text,
                            switch_pm_parameter="okay")
 
