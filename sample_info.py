@@ -1,5 +1,5 @@
 # Bot information
-SESSION = 'Media_search'
+SESSION = 'Search'
 USER_SESSION = 'User_Bot'
 API_ID = 12345
 API_HASH = '0123456789abcdef0123456789abcdef'
@@ -22,9 +22,9 @@ COLLECTION_NAME = 'channel_files'  # If you are using the same database, then us
 
 # Messages
 START_MSG = """
-**Hi, I'm Media Search bot**
+**Hola, Soy Search bot**
 
 Here you can search files in inline mode. Just press follwing buttons and start searching.
 """
 
-SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
+SHARE_BUTTON_TEXT = 'Comprobar {username} para buscar archivos'
