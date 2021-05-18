@@ -66,9 +66,13 @@ async def save_file(media):
 async def get_search_results(query, file_type=None, max_results=10, offset=0):
     """For given query return (results, next_offset)"""
 
-    raw_pattern = query.lower().strip().replace(' ', '[\s\.\+\-_]')
-    if not raw_pattern:
+    query = query.strip()
+    if not query:
         raw_pattern = '.'
+    elif ' ' not in query:
+        raw_pattern = f'[\b\.\+\-_]{query}[b\.\+\-_]'
+    else:
+        raw_pattern = query.replace(' ', '[\s\.\+\-_]')
 
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
