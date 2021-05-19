@@ -1,5 +1,4 @@
 https://github.com/Mahesh0253/pyrogram/archive/inline.zip
-tgcrypto
-umongo==2.3.0
-motor==2.3.0
-dnspython
+tgcrypto==1.2.2
+umongo[motor]==3.0.0
+dnspython==2.1.0
