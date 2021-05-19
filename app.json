@@ -19,6 +19,11 @@
             "description": "Your bot token.",
             "value": ""
         },
+        "USERBOT_STRING_SESSION": {
+            "description": "User bot string session.",
+            "value": "",
+            "required": false
+        },
         "API_ID": {
             "description": "Get this value from https://my.telegram.org",
             "value": ""
@@ -38,6 +43,16 @@
         "AUTH_USERS": {
             "description": "Username or ID of users to give access of inline search. Separate multiple users by space.\nLeave it empty if you don't want to restrict bot usage.",
             "value": "",
+            "required": false
+        },
+        "AUTH_CHANNEL": {
+            "description": "Username or ID of channel. Without subscribing this channel users cannot use bot.",
+            "value": "",
+            "required": false
+        },
+        "INVITE_MSG": {
+            "description": "Auth channel invitation message",
+            "value": "'Please join @.... to use this bot'",
             "required": false
         },
         "USE_CAPTION_FILTER": {

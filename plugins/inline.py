@@ -1,13 +1,27 @@
+import logging
 from urllib.parse import quote
+
 from pyrogram import Client, emoji, filters
+from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
+
 from utils import get_search_results
-from info import MAX_RESULTS, CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS
+from info import MAX_RESULTS, CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
+
+logger = logging.getLogger(__name__)
+cache_time = 0 if AUTH_USERS or AUTH_CHANNEL else CACHE_TIME
 
 
 @Client.on_inline_query(filters.user(AUTH_USERS) if AUTH_USERS else None)
 async def answer(bot, query):
     """Show search results for given inline query"""
+
+    if AUTH_CHANNEL and not await is_subscribed(bot, query):
+        await query.answer(results=[],
+                           cache_time=0,
+                           switch_pm_text='You have to subscribe channel',
+                           switch_pm_parameter="subscribe")
+        return
 
     results = []
     if '|' in query.query:
@@ -19,7 +33,7 @@ async def answer(bot, query):
         file_type = None
 
     offset = int(query.offset or 0)
-    reply_markup = get_reply_markup(bot.username)
+    reply_markup = get_reply_markup(bot.username, query=string)
     files, next_offset = await get_search_results(string,
                                                   file_type=file_type,
                                                   max_results=MAX_RESULTS,
@@ -40,7 +54,7 @@ async def answer(bot, query):
             switch_pm_text += f" for {string}"
 
         await query.answer(results=results,
-                           cache_time=CACHE_TIME,
+                           cache_time=cache_time,
                            switch_pm_text=switch_pm_text,
                            switch_pm_parameter="start",
                            next_offset=str(next_offset))
@@ -51,15 +65,15 @@ async def answer(bot, query):
             switch_pm_text += f' for "{string}"'
 
         await query.answer(results=[],
-                           cache_time=CACHE_TIME,
+                           cache_time=cache_time,
                            switch_pm_text=switch_pm_text,
                            switch_pm_parameter="okay")
 
 
-def get_reply_markup(username):
+def get_reply_markup(username, query):
     url = 't.me/share/url?url=' + quote(SHARE_BUTTON_TEXT.format(username=username))
     buttons = [[
-        InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
+        InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
         InlineKeyboardButton('Share bot', url=url),
     ]]
     return InlineKeyboardMarkup(buttons)
@@ -75,3 +89,17 @@ def get_size(size):
         i += 1
         size /= 1024.0
     return "%.2f %s" % (size, units[i])
+
+
+async def is_subscribed(bot, query):
+    try:
+        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        logger.exception(e)
+    else:
+        if not user.status == 'kicked':
+            return True
+
+    return False
