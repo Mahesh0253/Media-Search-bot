@@ -46,6 +46,7 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 * `USE_CAPTION_FILTER`: Whether bot should use captions to improve search results. (True/False)
 * `AUTH_USERS`: Username or ID of users to give access of inline search. Separate multiple users by space. Leave it empty if you don't want to restrict bot usage.
 * `AUTH_CHANNEL`: Username or ID of channel. Without subscribing this channel users cannot use bot.
+* `START_MSG`: Welcome message for start command.
 * `INVITE_MSG`: Auth channel invitation message.
 * `USERBOT_STRING_SESSION`: User bot string session.
 

@@ -50,9 +50,14 @@
             "value": "",
             "required": false
         },
+        "START_MSG": {
+            "description": "Welcome message for start command",
+            "value": "**Hi, I'm Media Search bot**\n\nHere you can search files in inline mode. Just press following buttons and start searching.",
+            "required": false
+        },
         "INVITE_MSG": {
             "description": "Auth channel invitation message",
-            "value": "'Please join @.... to use this bot'",
+            "value": "Please join @.... to use this bot",
             "required": false
         },
         "USE_CAPTION_FILTER": {
