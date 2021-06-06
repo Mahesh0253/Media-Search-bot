@@ -73,11 +73,6 @@
             "value": "Telegram_files",
             "required": false
         },
-        "MAX_RESULTS": {
-            "description": "Maximum limit for inline search results",
-            "value": "10",
-            "required": false
-        },
         "CACHE_TIME": {
             "description": "The maximum amount of time in seconds that the result of the inline query may be cached on the server",
             "value": "300",

@@ -42,7 +42,6 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 
 ### Optional Variables
 * `COLLECTION_NAME`: Name of the collections. Defaults to Telegram_files. If you going to use same database, then use different collection name for each bot
-* `MAX_RESULTS`: Maximum limit for inline search results
 * `CACHE_TIME`: The maximum amount of time in seconds that the result of the inline query may be cached on the server
 * `USE_CAPTION_FILTER`: Whether bot should use captions to improve search results. (True/False)
 * `AUTH_USERS`: Username or ID of users to give access of inline search. Separate multiple users by space. Leave it empty if you don't want to restrict bot usage.

@@ -6,7 +6,7 @@ from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
 from utils import get_search_results
-from info import MAX_RESULTS, CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
+from info import CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
 cache_time = 0 if AUTH_USERS or AUTH_CHANNEL else CACHE_TIME
@@ -36,7 +36,7 @@ async def answer(bot, query):
     reply_markup = get_reply_markup(bot.username, query=string)
     files, next_offset = await get_search_results(string,
                                                   file_type=file_type,
-                                                  max_results=MAX_RESULTS,
+                                                  max_results=10,
                                                   offset=offset)
 
     for file in files:
