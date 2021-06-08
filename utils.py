@@ -47,14 +47,11 @@ async def save_file(media):
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
+            caption=media.caption.html if media.caption else None,
         )
     except ValidationError:
         logger.exception('Error occurred while saving file in database')
     else:
-        caption = media.caption
-        if caption:
-            file.caption = caption
-
         try:
             await file.commit()
         except DuplicateKeyError:
@@ -70,7 +67,7 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
     if not query:
         raw_pattern = '.'
     elif ' ' not in query:
-        raw_pattern =r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
+        raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
     else:
         raw_pattern = query.replace(' ', r'[\s\.\+\-_]')
 
