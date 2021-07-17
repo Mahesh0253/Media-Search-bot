@@ -1,8 +1,10 @@
 {
     "name": "Media Search bot",
-    "description": "When you going to send file on telegram channel/group this bot will save that in database, So you can search that easily in inline mode",
+    "description": "When you going to send file on telegram channel this bot will save that in database, So you can search that easily in inline mode",
     "keywords": [
       "telegram",
+      "auto-filter",
+      "filter",
       "best",
       "indian",
       "pyrogram",
@@ -12,17 +14,12 @@
       "index",
       "inline"
     ],
-    "website": "https://github.com/Mahesh0253/Media-Search-bot",
-    "repository": "https://github.com/Mahesh0253/Media-Search-bot",
+    "website": "https://github.com/subinps/Media-Search-bot",
+    "repository": "https://github.com/subinps/Media-Search-bot",
     "env": {
         "BOT_TOKEN": {
             "description": "Your bot token.",
             "value": ""
-        },
-        "USERBOT_STRING_SESSION": {
-            "description": "User bot string session.",
-            "value": "",
-            "required": false
         },
         "API_ID": {
             "description": "Get this value from https://my.telegram.org",
@@ -52,12 +49,7 @@
         },
         "START_MSG": {
             "description": "Welcome message for start command",
-            "value": "**Hi, I'm Media Search bot**\n\nHere you can search files in inline mode. Just press following buttons and start searching.",
-            "required": false
-        },
-        "INVITE_MSG": {
-            "description": "Auth channel invitation message",
-            "value": "Please join @.... to use this bot",
+            "value": "**Hi, I'm Media Search Bot or ypu can call me as Auto-Filter Bot**\n\nHere you can search files in Inline mode as well as PM, Use the below buttons to search files or send me the name of file to search.",
             "required": false
         },
         "USE_CAPTION_FILTER": {

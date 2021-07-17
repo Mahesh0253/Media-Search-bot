@@ -5,8 +5,8 @@ from pyrogram import Client, emoji, filters
 from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
-from utils import get_search_results
-from info import CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
+from utils import get_search_results, is_subscribed
+from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
 cache_time = 0 if AUTH_USERS or AUTH_CHANNEL else CACHE_TIME
@@ -19,7 +19,7 @@ async def answer(bot, query):
     if AUTH_CHANNEL and not await is_subscribed(bot, query):
         await query.answer(results=[],
                            cache_time=0,
-                           switch_pm_text='You have to subscribe channel',
+                           switch_pm_text='You have to subscribe my channel to use the bot',
                            switch_pm_parameter="subscribe")
         return
 
@@ -33,7 +33,7 @@ async def answer(bot, query):
         file_type = None
 
     offset = int(query.offset or 0)
-    reply_markup = get_reply_markup(bot.username, query=string)
+    reply_markup = get_reply_markup(query=string)
     files, next_offset = await get_search_results(string,
                                                   file_type=file_type,
                                                   max_results=10,
@@ -70,12 +70,13 @@ async def answer(bot, query):
                            switch_pm_parameter="okay")
 
 
-def get_reply_markup(username, query):
-    url = 't.me/share/url?url=' + quote(SHARE_BUTTON_TEXT.format(username=username))
-    buttons = [[
-        InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
-        InlineKeyboardButton('Share bot', url=url),
-    ]]
+def get_reply_markup(query):
+    buttons = [
+        [
+            InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
+            InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122')
+        ]
+        ]
     return InlineKeyboardMarkup(buttons)
 
 
@@ -90,16 +91,3 @@ def get_size(size):
         size /= 1024.0
     return "%.2f %s" % (size, units[i])
 
-
-async def is_subscribed(bot, query):
-    try:
-        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
-    except UserNotParticipant:
-        pass
-    except Exception as e:
-        logger.exception(e)
-    else:
-        if not user.status == 'kicked':
-            return True
-
-    return False

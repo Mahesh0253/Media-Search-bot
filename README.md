@@ -1,16 +1,16 @@
-# [Media Search bot](https://github.com/Mahesh0253/Media-Search-bot)
+# Modified Version Of [Media Search bot](https://github.com/Mahesh0253/Media-Search-bot)
 
-* Index channel or group files for inline search.
-* When you post file on telegram channel or group this bot will save that file in database, so you can search easily in inline mode.
-* Supports document, video and audio file formats with caption support.
+## Added Features
+* Index command to index all the files in a given channel (No USER_SESSION Required).
+* Ability to Index Public Channels without being admin.
+* Support Auto-Filter (Both in PM and in Groups)
+* Once files saved in Database , exists until you manually deletes. (No Worry if post gets deleted from source channel.)
+* Added Force subscribe (Only channel subscribes can use the bot)
 
 ## Installation
 
-### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
 ### Easy Way
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/subinps/Media-Search-bot)
 ### Hard Way
 
 ```bash
@@ -47,8 +47,7 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 * `AUTH_USERS`: Username or ID of users to give access of inline search. Separate multiple users by space. Leave it empty if you don't want to restrict bot usage.
 * `AUTH_CHANNEL`: Username or ID of channel. Without subscribing this channel users cannot use bot.
 * `START_MSG`: Welcome message for start command.
-* `INVITE_MSG`: Auth channel invitation message.
-* `USERBOT_STRING_SESSION`: User bot string session.
+
 
 ## Admin commands
 ```
@@ -60,17 +59,20 @@ logger - Get log file
 ```
 
 ## Tips
-* Use `index` command or run [one_time_indexer.py](one_time_indexer.py) file to save old files in the database that are not indexed yet.
 * You can use `|` to separate query and file type while searching for specific type of file. For example: `Avengers | video`
 * If you don't want to create a channel or group, use your chat ID / username as the channel ID. When you send a file to a bot, it will be saved in the database.
 
-## Contributions
-Contributions are welcome.
 
-## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
+
+## Thanks to 
+* [Pyrogram](https://github.com/pyrogram/pyrogram)
+* Original [Repo](https://github.com/Mahesh0253/Media-Search-bot)
+
 
 ## Support
-[Update Channel](https://t.me/botxupdates) and [Support Group](https://t.me/botxsupport)
+Contact Me On [Telegram](https://t.me/subinps_bot)
+
+[Update Channel](https://t.me/subin_works)
 
 ## License
 Code released under [The GNU General Public License](LICENSE).

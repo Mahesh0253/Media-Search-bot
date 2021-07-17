@@ -2,24 +2,102 @@ import os
 import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG
-from utils import Media
-
+from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL
+from utils import Media, get_file_details
+from pyrogram.errors import UserNotParticipant
 logger = logging.getLogger(__name__)
 
-
-@Client.on_message(filters.command('start'))
-async def start(bot, message):
-    """Start command handler"""
-    if len(message.command) > 1 and message.command[1] == 'subscribe':
-        await message.reply(INVITE_MSG)
+@Client.on_message(filters.command("start"))
+async def start(bot, cmd):
+    usr_cmdall1 = cmd.text
+    if usr_cmdall1.startswith("/start subinps"):
+        if AUTH_CHANNEL:
+            invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
+            try:
+                user = await bot.get_chat_member(int(AUTH_CHANNEL), cmd.from_user.id)
+                if user.status == "kicked":
+                    await bot.send_message(
+                        chat_id=cmd.from_user.id,
+                        text="Sorry Sir, You are Banned to use me.",
+                        parse_mode="markdown",
+                        disable_web_page_preview=True
+                    )
+                    return
+            except UserNotParticipant:
+                ident, file_id = cmd.text.split("_-_-_-_")
+                await bot.send_message(
+                    chat_id=cmd.from_user.id,
+                    text="**Please Join My Updates Channel to use this Bot!**",
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                                InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
+                            ],
+                            [
+                                InlineKeyboardButton(" 🔄 Try Again", callback_data=f"checksub#{file_id}")
+                            ]
+                        ]
+                    ),
+                    parse_mode="markdown"
+                )
+                return
+            except Exception:
+                await bot.send_message(
+                    chat_id=cmd.from_user.id,
+                    text="Something went Wrong.",
+                    parse_mode="markdown",
+                    disable_web_page_preview=True
+                )
+                return
+        try:
+            ident, file_id = cmd.text.split("_-_-_-_")
+            filedetails = await get_file_details(file_id)
+            for files in filedetails:
+                file_caption = files.caption
+                buttons = [
+                    [
+                        InlineKeyboardButton('Search again', switch_inline_query_current_chat=''),
+                        InlineKeyboardButton('More Bots', url='https://t.me/subin_works/122')
+                    ]
+                    ]
+                await bot.send_cached_media(
+                    chat_id=cmd.from_user.id,
+                    file_id=file_id,
+                    caption=file_caption,
+                    reply_markup=InlineKeyboardMarkup(buttons)
+                    )
+        except Exception as err:
+            await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+    elif len(cmd.command) > 1 and cmd.command[1] == 'subscribe':
+        invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
+        await bot.send_message(
+            chat_id=cmd.from_user.id,
+            text="**Please Join My Updates Channel to use this Bot!**",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
+                    ]
+                ]
+            )
+        )
     else:
-        buttons = [[
-            InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('Go Inline', switch_inline_query=''),
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply(START_MSG, reply_markup=reply_markup)
+        await cmd.reply_text(
+            START_MSG,
+            parse_mode="Markdown",
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Search Here", switch_inline_query_current_chat=''),
+                        InlineKeyboardButton("Other Bots", url="https://t.me/subin_works/122")
+                    ],
+                    [
+                        InlineKeyboardButton("About", callback_data="about")
+                    ]
+                ]
+            )
+        )
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
@@ -101,3 +179,12 @@ async def delete(bot, message):
         await msg.edit('File is successfully deleted from database')
     else:
         await msg.edit('File not found in database')
+@Client.on_message(filters.command('about'))
+async def bot_info(bot, message):
+    buttons = [
+        [
+            InlineKeyboardButton('Update Channel', url='https://t.me/subin_works'),
+            InlineKeyboardButton('Source Code', url='https://github.com/subinps/Media-Search-bot')
+        ]
+        ]
+    await message.reply(text="<b>Developer : <a href='https://t.me/subinps_bot'>SUBIN</a>\nLanguage : <code>Python3</code>\nLibrary : <a href='https://docs.pyrogram.org/'>Pyrogram asyncio</a>\nSource Code : <a href='https://github.com/subinps/Media-Search-bot'>Click here</a>\nUpdate Channel : <a href='https://t.me/subin_works'>XTZ Bots</a> </b>", reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True)

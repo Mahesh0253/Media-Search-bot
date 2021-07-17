@@ -2,14 +2,14 @@ import re
 import base64
 import logging
 from struct import pack
-
+from pyrogram.errors import UserNotParticipant
 from pyrogram.file_id import FileId
 from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -100,6 +100,41 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
 
     return files, next_offset
 
+
+async def get_filter_results(query):
+    raw_pattern = query.lower().strip().replace(' ', '.*')
+    if not raw_pattern:
+        raw_pattern = '.'
+    try:
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+    except:
+        return []
+    filter = {'file_name': regex}
+    total_results = await Media.count_documents(filter)
+    cursor = Media.find(filter)
+    cursor.sort('$natural', -1)
+    files = await cursor.to_list(length=int(total_results))
+    return files
+
+async def get_file_details(query):
+    filter = {'file_id': query}
+    cursor = Media.find(filter)
+    filedetails = await cursor.to_list(length=1)
+    return filedetails
+
+
+async def is_subscribed(bot, query):
+    try:
+        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        logger.exception(e)
+    else:
+        if not user.status == 'kicked':
+            return True
+
+    return False
 
 def encode_file_id(s: bytes) -> str:
     r = b""

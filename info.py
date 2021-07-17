@@ -5,11 +5,9 @@ id_pattern = re.compile(r'^.\d+$')
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
-USER_SESSION = environ.get('USER_SESSION', 'User_Bot')
 API_ID = int(environ['API_ID'])
 API_HASH = environ['API_HASH']
 BOT_TOKEN = environ['BOT_TOKEN']
-USERBOT_STRING_SESSION = environ.get('USERBOT_STRING_SESSION')
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -30,11 +28,9 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Messages
 default_start_msg = """
-**Hi, I'm Media Search bot**
+**Hi, I'm Media Search Bot or ypu can call me as Auto-Filter Bot**
 
-Here you can search files in inline mode. Just press following buttons and start searching.
+Here you can search files in Inline mode as well as PM, Use the below buttons to search files or send me the name of file to search.
 """
 
 START_MSG = environ.get('START_MSG', default_start_msg)
-SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
-INVITE_MSG = environ.get('INVITE_MSG', 'Please join @.... to use this bot')
