@@ -43,7 +43,7 @@
             "required": false
         },
         "AUTH_CHANNEL": {
-            "description": "Username or ID of channel. Without subscribing this channel users cannot use bot.",
+            "description": "ID of channel.Make sure bot is admin in this channel. Without subscribing this channel users cannot use bot.",
             "value": "",
             "required": false
         },
