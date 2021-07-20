@@ -7,7 +7,7 @@ from pyrogram.errors import UserNotParticipant
 from utils import get_filter_results, get_file_details, is_subscribed
 BUTTONS = {}
 
-@Client.on_message(filters.text & filters.private & filters.incoming & (filters.user(AUTH_USERS) if AUTH_USERS else None))
+@Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(client, message):
     if message.text.startswith("/"):
         return
