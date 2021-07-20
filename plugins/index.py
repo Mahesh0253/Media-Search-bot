@@ -34,7 +34,7 @@ async def index_files(bot, message):
         total_files = 0
         async with lock:
             try:
-                total=last_msg_id
+                total=last_msg_id + 1
                 current=int(os.environ.get("SKIP", 2))
                 while True:
                     try:
