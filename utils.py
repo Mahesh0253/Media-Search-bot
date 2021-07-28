@@ -8,9 +8,14 @@ from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL
-
+import os
+import PTN
+import requests
+import json
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, AUTH_CHANNEL, API_KEY
+DATABASE_URI_2=os.environ.get('DATABASE_URI_2', DATABASE_URI)
+DATABASE_NAME_2=os.environ.get('DATABASE_NAME_2', DATABASE_NAME)
+COLLECTION_NAME_2="Posters"
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -18,6 +23,9 @@ client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
 instance = Instance.from_db(db)
 
+IClient = AsyncIOMotorClient(DATABASE_URI_2)
+imdbdb=client[DATABASE_NAME_2]
+imdb=Instance.from_db(imdbdb)
 
 @instance.register
 class Media(Document):
@@ -32,6 +40,33 @@ class Media(Document):
     class Meta:
         collection_name = COLLECTION_NAME
 
+@imdb.register
+class Poster(Document):
+    imdb_id = fields.StrField(attribute='_id')
+    title = fields.StrField()
+    poster = fields.StrField()
+    year= fields.IntField(allow_none=True)
+
+    class Meta:
+        collection_name = COLLECTION_NAME_2
+
+async def save_poster(imdb_id, title, year, url):
+    try:
+        data = Poster(
+            imdb_id=imdb_id,
+            title=title,
+            year=int(year),
+            poster=url
+        )
+    except ValidationError:
+        logger.exception('Error occurred while saving poster in database')
+    else:
+        try:
+            await data.commit()
+        except DuplicateKeyError:
+            logger.warning("already saved in database")
+        else:
+            logger.info("Poster is saved in database")
 
 async def save_file(media):
     """Save file in database"""
@@ -136,6 +171,50 @@ async def is_subscribed(bot, query):
 
     return False
 
+async def get_poster(movie):
+    extract = PTN.parse(movie)
+    try:
+        title=extract["title"]
+    except KeyError:
+        title=movie
+    try:
+        year=extract["year"]
+        year=int(year)
+    except KeyError:
+        year=None
+    if year:
+        filter = {'$and': [{'title': str(title).lower().strip()}, {'year': int(year)}]}
+    else:
+        filter = {'title': str(title).lower().strip()}
+    cursor = Poster.find(filter)
+    is_in_db = await cursor.to_list(length=1)
+    poster=None
+    if is_in_db:
+        for nyav in is_in_db:
+            poster=nyav.poster
+    else:
+        if year:
+            url=f'https://www.omdbapi.com/?s={title}&y={year}&apikey={API_KEY}'
+        else:
+            url=f'https://www.omdbapi.com/?s={title}&apikey={API_KEY}'
+        try:
+            n = requests.get(url)
+            a = json.loads(n.text)
+            if a["Response"] == 'True':
+                y = a.get("Search")[0]
+                v=y.get("Title").lower().strip()
+                poster = y.get("Poster")
+                year=y.get("Year")[:4]
+                id=y.get("imdbID")
+                await save_poster(id, v, year, poster)
+        except Exception as e:
+            logger.exception(e)
+            pass
+    return poster
+
+
+
+
 def encode_file_id(s: bytes) -> str:
     r = b""
     n = 0
@@ -171,3 +250,4 @@ def unpack_new_file_id(new_file_id):
     )
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
+

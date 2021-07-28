@@ -36,6 +36,7 @@ async def index_files(bot, message):
             try:
                 total=last_msg_id + 1
                 current=int(os.environ.get("SKIP", 2))
+                nyav=0
                 while True:
                     try:
                         message = await bot.get_messages(chat_id=chat_id, message_ids=current, replies=0)
@@ -64,6 +65,10 @@ async def index_files(bot, message):
                         print(e)
                         pass
                     current+=1
+                    nyav+=1
+                    if nyav == 20:
+                        await msg.edit(f"Total messages fetched: {current}\nTotal messages saved: {total_files}")
+                        nyav -= 20
                     if current == total:
                         break
                     else:

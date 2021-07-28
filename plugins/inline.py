@@ -1,12 +1,9 @@
 import logging
-from urllib.parse import quote
-
 from pyrogram import Client, emoji, filters
-from pyrogram.errors import UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
 
 from utils import get_search_results, is_subscribed
-from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL
+from info import CACHE_TIME, AUTH_USERS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
 
 logger = logging.getLogger(__name__)
 cache_time = 0 if AUTH_USERS or AUTH_CHANNEL else CACHE_TIME
@@ -40,14 +37,22 @@ async def answer(bot, query):
                                                   offset=offset)
 
     for file in files:
-        caption=file.caption
-        if caption is None:
-            caption = f"{file.file_name}"
+        title=file.file_name
+        size=file.file_size
+        f_caption=file.caption
+        if CUSTOM_FILE_CAPTION:
+            try:
+                f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+            except Exception as e:
+                print(e)
+                f_caption=f_caption
+        if f_caption is None:
+            f_caption = f"{file.file_name}"
         results.append(
             InlineQueryResultCachedDocument(
                 title=file.file_name,
                 file_id=file.file_id,
-                caption=caption,
+                caption=f_caption,
                 description=f'Size: {get_size(file.file_size)}\nType: {file.file_type}',
                 reply_markup=reply_markup))
 

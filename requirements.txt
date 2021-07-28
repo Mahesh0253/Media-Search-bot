@@ -5,3 +5,5 @@ motor==2.4.0
 marshmallow==3.12.2
 umongo==3.0.0
 pyromod
+requests
+parse-torrent-name
