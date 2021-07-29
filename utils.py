@@ -210,13 +210,20 @@ async def get_poster(movie):
                 poster = y.get("Poster")
                 year=y.get("Year")[:4]
                 id=y.get("imdbID")
-                await save_poster(id, v, year, poster)
+                await get_all(a.get("Search"))
         except Exception as e:
             logger.exception(e)
             pass
     return poster
 
 
+async def get_all(list):
+    for y in list:
+        v=y.get("Title").lower().strip()
+        poster = y.get("Poster")
+        year=y.get("Year")[:4]
+        id=y.get("imdbID")
+        await save_poster(id, v, year, poster)
 
 
 def encode_file_id(s: bytes) -> str:
