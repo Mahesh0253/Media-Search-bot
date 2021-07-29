@@ -95,7 +95,7 @@ async def delete(bot, message):
         'file_name': media.file_name,
         'file_size': media.file_size,
         'mime_type': media.mime_type,
-        'caption': reply.caption if reply.caption else None
+        'caption': reply.caption.html if reply.caption else None
     })
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
