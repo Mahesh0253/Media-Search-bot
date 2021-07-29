@@ -12,7 +12,6 @@
 
 
 ### Hard Way
-
 ```bash
 # Create virtual environment
 python3 -m venv env
@@ -42,9 +41,15 @@ docker run -d \
     --restart on-failure \
     --name mediasearchbot botxtg/media-search-bot
 ```
+You can also run with `env` file like below,
+```
+docker run -d \ 
+     --env-file .env \
+     --restart on-failure \
+     --name mediasearchbot botxtg/media-search-bot
+```
 
 ## Variables
-
 ### Required Variables
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 * `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
@@ -63,7 +68,6 @@ docker run -d \
 * `START_MSG`: Welcome message for start command.
 * `INVITE_MSG`: Auth channel invitation message.
 * `USERBOT_STRING_SESSION`: User bot string session.
-
 ## Admin commands
 ```
 channel - Get basic infomation about channels
@@ -88,3 +92,4 @@ Contributions are welcome.
 
 ## License
 Code released under [The GNU General Public License](LICENSE).
+
