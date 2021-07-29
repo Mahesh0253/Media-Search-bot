@@ -68,3 +68,28 @@ docker run -d \
 * `START_MSG`: Welcome message for start command.
 * `INVITE_MSG`: Auth channel invitation message.
 * `USERBOT_STRING_SESSION`: User bot string session.
+## Admin commands
+```
+channel - Get basic infomation about channels
+total - Show total of saved files
+delete - Delete file from database
+index - Index all files from channel or group
+logger - Get log file
+```
+
+## Tips
+* Use `index` command or run [one_time_indexer.py](one_time_indexer.py) file to save old files in the database that are not indexed yet.
+* You can use `|` to separate query and file type while searching for specific type of file. For example: `Avengers | video`
+* If you don't want to create a channel or group, use your chat ID / username as the channel ID. When you send a file to a bot, it will be saved in the database.
+
+## Contributions
+Contributions are welcome.
+
+## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
+
+## Support
+[Update Channel](https://t.me/botxupdates) and [Support Group](https://t.me/botxsupport)
+
+## License
+Code released under [The GNU General Public License](LICENSE).
+
