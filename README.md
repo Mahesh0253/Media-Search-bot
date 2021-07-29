@@ -39,7 +39,7 @@ docker run -d \
     -e ADMINS='123456789' \
     -e DATABASE_URI="mongodb+srv://...mongodb.net/Database?retryWrites=true&w=majority" \
     -e DATABASE_NAME=databasename \
-    --restart always \
+    --restart on-failure \
     --name mediasearchbot botxtg/media-search-bot
 ```
 
