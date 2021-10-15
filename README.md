@@ -46,7 +46,6 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 ### Optional Variables
 * `OMDB_API_KEY`: OMBD_API_KEY to generate imdb poster for filter results.Get it from [omdbapi.com](http://www.omdbapi.com/apikey.aspx)
 * `CUSTOM_FILE_CAPTION` : A custom caption for your files. You can format it with file_name, file_size, file_caption.(supports html formating). Don't use '\n' for now.
-
 Example: `<b>Join [XTZ Bots](https://t.me/subin_works) for more useful bots</b>
 <code>{file_name}</code>
 Size{file_size}
