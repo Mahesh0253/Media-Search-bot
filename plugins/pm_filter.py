@@ -367,6 +367,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 await query.message.reply_to_message.delete()
                 await query.message.delete()
             except:
-                pass
+                await query.message.delete()
+                pas
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
