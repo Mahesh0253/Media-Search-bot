@@ -3,6 +3,7 @@ from info import AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, API_KEY, AUTH_GR
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re
+import os
 from pyrogram.errors import UserNotParticipant
 from utils import get_filter_results, get_file_details, is_subscribed, get_poster
 BUTTONS = {}
@@ -77,6 +78,8 @@ async def filter(client, message):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
+            if os.environ.get("BUTTON",False):
+                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
             poster=None
             if API_KEY:
                 poster=await get_poster(search)
@@ -96,6 +99,8 @@ async def filter(client, message):
         buttons.append(
             [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
         )
+        if os.environ.get("BUTTON",False):
+            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
         poster=None
         if API_KEY:
             poster=await get_poster(search)
@@ -141,6 +146,8 @@ async def group(client, message):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
+            if os.environ.get("BUTTON",False):
+                buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
             poster=None
             if API_KEY:
                 poster=await get_poster(search)
@@ -159,6 +166,8 @@ async def group(client, message):
         buttons.append(
             [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
         )
+        if os.environ.get("BUTTON",False):
+            buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
         poster=None
         if API_KEY:
             poster=await get_poster(search)
@@ -212,6 +221,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pages {int(index)+2}/{data['total']}", callback_data="pages")]
                 )
+                if os.environ.get("BUTTON",False):
+                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
 
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -226,6 +237,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pages {int(index)+2}/{data['total']}", callback_data="pages")]
                 )
+                if os.environ.get("BUTTON",False):
+                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
 
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -250,6 +263,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pages {int(index)}/{data['total']}", callback_data="pages")]
                 )
+                if os.environ.get("BUTTON",False):
+                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
 
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -264,6 +279,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pages {int(index)}/{data['total']}", callback_data="pages")]
                 )
+                if os.environ.get("BUTTON",False):
+                    buttons.append([InlineKeyboardButton(text="Close ❌",callback_data="close")])
 
                 await query.edit_message_reply_markup( 
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -345,5 +362,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
         elif query.data == "pages":
             await query.answer()
+        elif query.data == "close":
+            try:
+                await query.message.reply_to_message.delete()
+                await query.message.delete()
+            except:
+                pass
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
