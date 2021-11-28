@@ -57,6 +57,7 @@ Size{file_size}
 * `AUTH_USERS`: Username or ID of users to give access of inline search. Separate multiple users by space. Leave it empty if you don't want to restrict bot usage.
 * `AUTH_CHANNEL`: ID of channel. Without subscribing this channel users cannot use bot.
 * `START_MSG`: Welcome message for start command.
+* `BUTTON` : Set this to True only if you want close button.
 
 ## Note
 * Currently [API used](http://www.omdbapi.com) here is allowing 1000 requests per day. [You may not get posters if its crossed](https://t.me/ThankTelegram/910168). 
