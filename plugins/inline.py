@@ -3,9 +3,9 @@ from urllib.parse import quote
 
 from pyrogram import Client, emoji, filters
 from pyrogram.errors import UserNotParticipant
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InlineQueryResultCachedDocument
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from utils import get_search_results
+from utils import get_search_results, InlineQueryResultCachedDocument
 from info import CACHE_TIME, SHARE_BUTTON_TEXT, AUTH_USERS, AUTH_CHANNEL
 
 logger = logging.getLogger(__name__)
@@ -17,27 +17,26 @@ async def answer(bot, query):
     """Show search results for given inline query"""
 
     if AUTH_CHANNEL and not await is_subscribed(bot, query):
-        await query.answer(results=[],
-                           cache_time=0,
-                           switch_pm_text='You have to subscribe channel',
-                           switch_pm_parameter="subscribe")
+        await query.answer(
+            results=[],
+            cache_time=0,
+            switch_pm_text='You have to subscribe channel',
+            switch_pm_parameter="subscribe",
+        )
         return
 
     results = []
     if '|' in query.query:
-        string, file_type = query.query.split('|', maxsplit=1)
-        string = string.strip()
+        text, file_type = query.query.split('|', maxsplit=1)
+        text = text.strip()
         file_type = file_type.strip().lower()
     else:
-        string = query.query.strip()
+        text = query.query.strip()
         file_type = None
 
     offset = int(query.offset or 0)
-    reply_markup = get_reply_markup(bot.username, query=string)
-    files, next_offset = await get_search_results(string,
-                                                  file_type=file_type,
-                                                  max_results=10,
-                                                  offset=offset)
+    reply_markup = get_reply_markup(bot.username, query=text)
+    files, next_offset = await get_search_results(text, file_type=file_type, max_results=10, offset=offset)
 
     for file in files:
         results.append(
@@ -45,41 +44,49 @@ async def answer(bot, query):
                 title=file.file_name,
                 file_id=file.file_id,
                 caption=file.caption or "",
-                description=f'Size: {get_size(file.file_size)}\nType: {file.file_type}',
-                reply_markup=reply_markup))
+                description=f'Size: {size_formatter(file.file_size)}\nType: {file.file_type}',
+                reply_markup=reply_markup
+            )
+        )
 
     if results:
         switch_pm_text = f"{emoji.FILE_FOLDER} Results"
-        if string:
-            switch_pm_text += f" for {string}"
+        if text:
+            switch_pm_text += f" for {text}"
 
-        await query.answer(results=results,
-                           cache_time=cache_time,
-                           switch_pm_text=switch_pm_text,
-                           switch_pm_parameter="start",
-                           next_offset=str(next_offset))
+        await query.answer(
+            results=results,
+            cache_time=cache_time,
+            switch_pm_text=switch_pm_text,
+            switch_pm_parameter="start",
+            next_offset=str(next_offset)
+        )
     else:
 
         switch_pm_text = f'{emoji.CROSS_MARK} No results'
-        if string:
-            switch_pm_text += f' for "{string}"'
+        if text:
+            switch_pm_text += f' for "{text}"'
 
-        await query.answer(results=[],
-                           cache_time=cache_time,
-                           switch_pm_text=switch_pm_text,
-                           switch_pm_parameter="okay")
+        await query.answer(
+            results=[],
+            cache_time=cache_time,
+            switch_pm_text=switch_pm_text,
+            switch_pm_parameter="okay",
+        )
 
 
 def get_reply_markup(username, query):
     url = 't.me/share/url?url=' + quote(SHARE_BUTTON_TEXT.format(username=username))
-    buttons = [[
-        InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
-        InlineKeyboardButton('Share bot', url=url),
-    ]]
+    buttons = [
+        [
+            InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
+            InlineKeyboardButton('Share bot', url=url),
+        ]
+    ]
     return InlineKeyboardMarkup(buttons)
 
 
-def get_size(size):
+def size_formatter(size):
     """Get size in readable format"""
 
     units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
