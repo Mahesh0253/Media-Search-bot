@@ -71,7 +71,7 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
     try:
         regex = re.compile(raw_pattern, flags=re.IGNORECASE)
     except:
-        return []
+        return [], ''
 
     if USE_CAPTION_FILTER:
         filter = {'$or': [{'file_name': regex}, {'caption': regex}]}
