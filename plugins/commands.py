@@ -3,7 +3,7 @@ import logging
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG
-from utils import Media
+from utils import Media, unpack_new_file_id
 
 logger = logging.getLogger(__name__)
 
@@ -77,11 +77,11 @@ async def log_file(bot, message):
 async def delete(bot, message):
     """Delete file from database"""
     reply = message.reply_to_message
-    if reply and reply.media:
-        msg = await message.reply("Processing...⏳", quote=True)
-    else:
+    if not (reply and reply.media):
         await message.reply('Reply to file with /delete which you want to delete', quote=True)
         return
+
+    msg = await message.reply("Processing...⏳", quote=True)
 
     for file_type in ("document", "video", "audio"):
         media = getattr(reply, file_type, None)
@@ -91,12 +91,9 @@ async def delete(bot, message):
         await msg.edit('This is not supported file format')
         return
 
-    result = await Media.collection.delete_one({
-        'file_name': media.file_name,
-        'file_size': media.file_size,
-        'mime_type': media.mime_type,
-        'caption': reply.caption.html if reply.caption else None
-    })
+    file_id = unpack_new_file_id(media.file_id)[0]
+    result = await Media.collection.delete_one({'file_id': file_id})
+
     if result.deleted_count:
         await msg.edit('File is successfully deleted from database')
     else:
