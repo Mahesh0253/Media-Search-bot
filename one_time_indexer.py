@@ -22,12 +22,8 @@ async def main():
 
     try:
         for channel in CHANNELS:
-            async for user_message in user_bot.iter_history(channel):
-                message = await bot.get_messages(
-                    channel,
-                    user_message.message_id,
-                    replies=0,
-                )
+            async for user_message in user_bot.get_chat_history(channel):
+                message = await bot.get_messages(channel, user_message.id, replies=0)
                 for file_type in ("document", "video", "audio"):
                     media = getattr(message, file_type, None)
                     if media is not None:
