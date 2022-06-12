@@ -24,7 +24,7 @@ async def index_files(bot, message):
     else:
         msg = await message.reply('Processing...⏳')
         raw_data = message.command[1:]
-        user_bot = Client(USERBOT_STRING_SESSION, API_ID, API_HASH)
+        user_bot = Client('User-bot', API_ID, API_HASH, session_string=USERBOT_STRING_SESSION)
         chats = [int(chat) if id_pattern.search(chat) else chat for chat in raw_data]
         total_files = 0
 
