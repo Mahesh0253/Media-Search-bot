@@ -37,7 +37,7 @@ async def index_files(bot, message):
                             try:
                                 message = await bot.get_messages(chat, user_message.id, replies=0)
                             except FloodWait as e:
-                                await asyncio.sleep(e.x)
+                                await asyncio.sleep(e.value)
                                 message = await bot.get_messages(chat, user_message.id, replies=0)
 
                             for file_type in ("document", "video", "audio"):
