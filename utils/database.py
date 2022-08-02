@@ -75,20 +75,20 @@ async def get_search_results(query, file_type=None, max_results=10, offset=0):
         return [], ''
 
     if USE_CAPTION_FILTER:
-        filter = {'$or': [{'file_name': regex}, {'caption': regex}]}
+        extract = {'$or': [{'file_name': regex}, {'caption': regex}]}
     else:
-        filter = {'file_name': regex}
+        extract = {'file_name': regex}
 
     if file_type:
-        filter['file_type'] = file_type
+        extract['file_type'] = file_type
 
-    total_results = await Media.count_documents(filter)
+    total_results = await Media.count_documents(extract)
     next_offset = offset + max_results
 
     if next_offset > total_results:
         next_offset = ''
 
-    cursor = Media.find(filter)
+    cursor = Media.find(extract)
 
     # Sort by recent
     cursor.sort('$natural', -1)
