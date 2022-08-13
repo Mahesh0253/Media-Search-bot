@@ -3,7 +3,7 @@ import logging.config
 
 # Get logging configurations
 logging.config.fileConfig('logging.conf')
-logging.getLogger().setLevel(logging.ERROR)
+logging.getLogger().setLevel(logging.WARNING)
 
 import asyncio
 from pyrogram import Client
