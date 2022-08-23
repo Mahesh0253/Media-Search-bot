@@ -14,7 +14,7 @@ from utils import save_file
 async def main():
     """Save old files in database with the help of user bot"""
 
-    user_bot = Client('User-bot', API_ID, API_HASH, session_string=USER_SESSION)
+    user_bot = Client('User-bot', API_ID, API_HASH, session_string=USER_SESSION, in_memory=True)
     bot = Client(SESSION, API_ID, API_HASH, bot_token=BOT_TOKEN)
 
     await user_bot.start()
