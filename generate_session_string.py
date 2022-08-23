@@ -23,8 +23,9 @@ async def main():
         in_memory=True
     )
 
-    session_string = await user_bot.export_session_string()
-    print(f"Following is your session string -\n\n{session_string}")
+    async with user_bot:
+        session_string = await user_bot.export_session_string()
+        print(f"Following is your session string -\n\n{session_string}")
 
 
 loop = asyncio.get_event_loop()
