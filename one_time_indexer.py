@@ -7,14 +7,14 @@ logging.getLogger().setLevel(logging.WARNING)
 
 import asyncio
 from pyrogram import Client
-from info import SESSION, USER_SESSION, API_ID, API_HASH, BOT_TOKEN, CHANNELS
+from info import SESSION, USERBOT_STRING_SESSION, API_ID, API_HASH, BOT_TOKEN, CHANNELS
 from utils import save_file
 
 
 async def main():
     """Save old files in database with the help of user bot"""
 
-    user_bot = Client('User-bot', API_ID, API_HASH, session_string=USER_SESSION, in_memory=True)
+    user_bot = Client('User-bot', API_ID, API_HASH, session_string=USERBOT_STRING_SESSION, in_memory=True)
     bot = Client(SESSION, API_ID, API_HASH, bot_token=BOT_TOKEN)
 
     await user_bot.start()
