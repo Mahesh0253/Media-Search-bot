@@ -42,7 +42,7 @@ async def channel_info(bot, message):
         else:
             text += '\n' + chat.title or chat.first_name
 
-    text += f'\n\n**Total:** {len(CHANNELS)}'
+    text += f'\n\n**مجموع:** {len(CHANNELS)}'
 
     if len(text) < 4096:
         await message.reply(text)
