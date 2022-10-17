@@ -1,3 +1,6 @@
+import re
+id_pattern = re.compile(r'^.\d+$')
+
 # Bot information
 SESSION = 'Media_search'
 USER_SESSION = 'User_Bot'
