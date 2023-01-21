@@ -87,7 +87,8 @@ async def delete(bot, message):
 
     for file_type in ("document", "video", "audio"):
         media = getattr(reply, file_type, None)
-        if media is not None:
+        if media:
+            media.file_type = file_type
             break
     else:
         await msg.edit('This is not supported file format')
